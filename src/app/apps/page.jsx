@@ -1,7 +1,11 @@
-import React from "react";
+import TrendingApps from "@/components/homepage/TrendingApps";
 
-const Apps = () => {
-  return <div>This is Apps page</div>;
+const AppsPage = () => {
+  return (
+    <div>
+      <TrendingApps from='apps'></TrendingApps>
+    </div>
+  );
 };
 
-export default Apps;
+export default AppsPage;

@@ -3,6 +3,7 @@ import LogoImg from "../../../assets/images/logo.png";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import MyLink from "./MyLink";
 
 const Navbar = () => {
   const links = [
@@ -19,11 +20,9 @@ const Navbar = () => {
       to: "/installation",
     },
     {
-      name: 'Dashboard',
-      to:'/dashboard'
-    }
-
-   
+      name: "Dashboard",
+      to: "/dashboard",
+    },
   ];
   return (
     <div className="bg-base-100 shadow-sm">
@@ -51,10 +50,11 @@ const Navbar = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
+                {/* client component */}
               {links.map((link) => (
-                <li key={link.to}>
-                  <Link href={link.to}>{link.name}</Link>
-                </li>
+                <MyLink key={link.to} href={link.to}>
+                  {link.name}
+                </MyLink>
               ))}
             </ul>
           </div>
@@ -69,10 +69,11 @@ const Navbar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="flex justify-center items-center gap-3 px-1">
+            {/* Client side */}
             {links.map((link) => (
-              <li key={link.to}>
-                <Link href={link.to}>{link.name}</Link>
-              </li>
+              <MyLink key={link.to} href={link.to}>
+                {link.name}
+              </MyLink>
             ))}
           </ul>
         </div>

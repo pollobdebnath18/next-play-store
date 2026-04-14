@@ -1,12 +1,20 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-const MyLink = ({href,children}) => {
+const MyLink = ({ href, children }) => {
+  const pathName = usePathname();
+  // console.log(pathName);
   return (
     <div>
-      <li key={href}>
-        <Link href={href}>{children}</Link>
-      </li>
+      <Link
+        key={href}
+        href={href}
+        className={`${pathName === href ? "border-b-2 pb-2 border-purple-500 text-blue-400" : ""}`}
+      >
+        {children}
+      </Link>
     </div>
   );
 };
