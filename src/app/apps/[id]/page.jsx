@@ -1,19 +1,29 @@
 import Image from "next/image";
-import React from "react";
+
 // import { Image } from "";
 import DownloadImg from "../../../assets/images/icon-downloads.png";
 import RatingImg from "../../../assets/images/icon-ratings.png";
 import ReveiwImg from "../../../assets/images/icon-review.png";
+import Chart from "@/components/apps/Chart";
 import InstallButton from "@/components/apps/InstallButton";
 
-
-
-
 const fetchData = async () => {
-  const res = await fetch("http://localhost:3000//data.json");
+  const res = await fetch("http://localhost:3000/data.json");
   const data = await res.json();
   return data;
 };
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const apps = await fetchData();
+  const expectedApp = apps.find((app) => app.id === Number(id));
+
+  return {
+    title: expectedApp.title,
+    description: expectedApp.description,
+  };
+}
+
 const AppDetails = async ({ params }) => {
   const apps = await fetchData();
   const { id } = await params;
@@ -34,7 +44,6 @@ const AppDetails = async ({ params }) => {
 
   const checkApp = apps.find((ap) => ap.id === expectedApp.id);
 
-
   console.log(expectedApp);
   return (
     <div className="max-w-[1200px] mx-auto my-16">
@@ -44,8 +53,8 @@ const AppDetails = async ({ params }) => {
             className="w-[300px] h-[300px] rounded-xl object-contain"
             src={image}
             alt="image"
-            width={300}
-            height={300}
+            width={250}
+            height={250}
           />
         </div>
         <div className="space-y-6 bg-blue-50 w-full md:w-[70%] px-10 py-10 rounded-lg">
@@ -90,15 +99,16 @@ const AppDetails = async ({ params }) => {
             </div>
           </div>
           <div>
-           {/* button */}
-           {/* <InstallButton></InstallButton> */}
+            {/* button */}
+            <InstallButton expectedApp={expectedApp}></InstallButton>
+            {/* <button>Install now</button> */}
           </div>
         </div>
       </div>
       <div className="border-t py-6">
         <h2 className="text-xl font-bold ml-10">Ratings</h2>
       </div>
-      {/* <Chart ratings={ratings}></Chart> */}
+      <Chart ratings={ratings}></Chart>
 
       <div className="mt-10 py-6">
         <h2 className="text-xl font-bold ml-10">Description</h2>

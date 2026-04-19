@@ -1,24 +1,26 @@
-import React from "react";
+"use client";
 
-const handleInstall = (expectedApp) => {
-  const checkApp = apps.find((ap) => ap.id === expectedApp.id);
+import { InstalledAppContext } from "@/context/InstalledAppContext";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 
-  if (!checkApp) {
+const InstallButton = ({ expectedApp }) => {
+  const { installApps, setInstallApps } = useContext(InstalledAppContext);
+  console.log(installApps, "apps from context");
+
+  const handleInstall = () => {
     setInstallApps([...installApps, expectedApp]);
-    toast.success(`${expectedApp.title} Successfully installed`);
-  } else {
-    toast.error(`${expectedApp.title} is already installed`);
-  }
-};
-
-const InstallButton = () => {
+    toast.success(`${expectedApp.title} is install Successfully`);
+  };
+  const isInstalled = installApps.find((ap) => ap.id === expectedApp.id);
+  console.log(isInstalled);
   return (
     <div>
-      <button
-        onClick={() => handleInstall(expectedApp)}
-        className={`btn text-white ${checkApp ? " bg-gray-300" : "bg-[#00D390]"}`}
+      <button disabled={isInstalled?true:false}
+        onClick={handleInstall}
+        className={`btn text-white ${isInstalled? "opacity-80":"bg-green-600"}`}
       >
-        Install Now ({size}MB)
+        Install Now MB
       </button>
     </div>
   );
