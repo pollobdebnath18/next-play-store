@@ -1,4 +1,3 @@
-// 'use client'
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
@@ -34,9 +33,11 @@ const TrendingApps = async ({ from }) => {
         </div>
       ) : ( */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-20 mx-20 md:mx-10 lg:mx-0">
-        {apps.slice(0, from === 'homepage'? 9 : apps.length).map((app, idx) => (
-          <AppCard key={idx} app={app}></AppCard>
-        ))}
+        {apps
+          .slice(0, from === "homepage" ? 9 : apps.length)
+          .map((app, idx) => (
+            <AppCard key={idx} app={app}></AppCard>
+          ))}
       </div>
       {/* )} */}
       {from === "apps" ? null : (

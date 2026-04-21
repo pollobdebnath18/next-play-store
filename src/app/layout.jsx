@@ -30,11 +30,8 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen">
         <Providers>
-          <Navbar></Navbar>
-          <main className="pt-10">{children}</main>
+          <main className="">{children}</main>
           <ToastContainer />
-
-          <Footer></Footer>
         </Providers>
       </body>
     </html>

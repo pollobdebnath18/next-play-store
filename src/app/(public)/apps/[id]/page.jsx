@@ -1,11 +1,12 @@
 import Image from "next/image";
 
 // import { Image } from "";
-import DownloadImg from "../../../assets/images/icon-downloads.png";
-import RatingImg from "../../../assets/images/icon-ratings.png";
-import ReveiwImg from "../../../assets/images/icon-review.png";
+import DownloadImg from "../../../../assets/images/icon-downloads.png";
+import RatingImg from "../../../../assets/images/icon-ratings.png";
+import ReveiwImg from "../../../../assets/images/icon-review.png";
 import Chart from "@/components/apps/Chart";
 import InstallButton from "@/components/apps/InstallButton";
+import { notFound } from "next/navigation";
 
 const fetchData = async () => {
   const res = await fetch("http://localhost:3000/data.json");
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }) {
   const expectedApp = apps.find((app) => app.id === Number(id));
 
   return {
-    title: expectedApp.title,
-    description: expectedApp.description,
+    title: expectedApp?.title,
+    description: expectedApp?.description,
   };
 }
 
@@ -29,6 +30,10 @@ const AppDetails = async ({ params }) => {
   const { id } = await params;
   //   console.log("apps: ",apps, "ID",typeof id);
   const expectedApp = apps.find((app) => app.id === Number(id));
+
+  if (!expectedApp) {
+    notFound();
+  }
 
   const {
     image,
@@ -40,9 +45,9 @@ const AppDetails = async ({ params }) => {
     reviews,
     ratingAvg,
     ratings,
-  } = expectedApp;
+  } = expectedApp || {};
 
-  const checkApp = apps.find((ap) => ap.id === expectedApp.id);
+  const checkApp = apps.find((ap) => ap.id === expectedApp?.id);
 
   console.log(expectedApp);
   return (
